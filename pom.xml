@@ -125,6 +125,17 @@
                 <!--
                 ...Additional dependencies may be placed here...
                 -->
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-support-jdbc</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>5.1.21</version>
+                </dependency>
+
             </dependencies>
         </profile>
 
