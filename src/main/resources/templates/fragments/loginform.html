@@ -74,6 +74,28 @@
                             </span>
                             </div>
                         </section>
+<!--                        页面需要增加验证码，并且能够回传-->
+
+                        <section class="form-group">
+                            <label for="captcha">验证码：</label>
+
+                            <div>
+                                <input class="form-control required"
+                                       type="captcha"
+                                       id="captcha"
+                                       size="25"
+                                       tabindex="2"
+                                       th:field="*{captcha}"
+                                       autocomplete="off"/>
+                                <img th:src="@{/captcha.jpg}" id="captcha_img" onclick="javascript:refreshCaptcha()"/>
+                            </span>
+                            </div>
+                            <script type="text/javascript" th:inline="javascript">
+                                function refreshCaptcha(){
+                                    $("#captcha_img").attr("src","${request.contextPath}/captcha.jpg?id=" + new Date() + Math.floor(Math.random()*24));
+                                }
+                            </script>
+                        </section>
 
                         <section class="form-check" th:if="${passwordManagementEnabled && param.doChangePassword != null}">
                             <p>
@@ -157,4 +179,6 @@
     </div>
 </main>
 </body>
+
+
 </html>

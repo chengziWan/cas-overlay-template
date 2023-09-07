@@ -65,6 +65,13 @@
         </plugins>
         <finalName>cas</finalName>
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-support-jdbc-authentication</artifactId>
+            <version>5.3.16</version>
+        </dependency>
+    </dependencies>
 
     <properties>
         <cas.version>5.3.16</cas.version>
@@ -81,32 +88,32 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>sonatype-releases</id>
-            <url>http://oss.sonatype.org/content/repositories/releases/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>sonatype-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>shibboleth-releases</id>
-            <url>https://build.shibboleth.net/nexus/content/repositories/releases</url>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>sonatype-releases</id>-->
+<!--            <url>http://oss.sonatype.org/content/repositories/releases/</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--            <releases>-->
+<!--                <enabled>true</enabled>-->
+<!--            </releases>-->
+<!--        </repository>-->
+<!--        <repository>-->
+<!--            <id>sonatype-snapshots</id>-->
+<!--            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>true</enabled>-->
+<!--            </snapshots>-->
+<!--            <releases>-->
+<!--                <enabled>false</enabled>-->
+<!--            </releases>-->
+<!--        </repository>-->
+<!--        <repository>-->
+<!--            <id>shibboleth-releases</id>-->
+<!--            <url>https://build.shibboleth.net/nexus/content/repositories/releases</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 
     <profiles>
         <profile>
@@ -125,102 +132,165 @@
                 <!--
                 ...Additional dependencies may be placed here...
                 -->
+
+
+                <!-- 数据库 -->
                 <dependency>
                     <groupId>org.apereo.cas</groupId>
                     <artifactId>cas-server-support-jdbc</artifactId>
                     <version>${cas.version}</version>
                 </dependency>
                 <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-support-jdbc-drivers</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+                <!-- Database Authentication End -->
+                <dependency>
                     <groupId>mysql</groupId>
                     <artifactId>mysql-connector-java</artifactId>
                     <version>5.1.21</version>
                 </dependency>
-
-            </dependencies>
-        </profile>
-
-        <profile>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <id>exec</id>
-            <properties>
-                <mainClassName>org.apereo.cas.web.CasWebApplication</mainClassName>
-                <isExecutable>true</isExecutable>
-                <manifestFileToUse></manifestFileToUse>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.soebes.maven.plugins</groupId>
-                        <artifactId>echo-maven-plugin</artifactId>
-                        <version>0.3.0</version>
-                        <executions>
-                            <execution>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>echo</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <echos>
-                                <echo>Executable profile to make the generated CAS web application executable.</echo>
-                            </echos>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <id>bootiful</id>
-            <properties>
-                <app.server>-tomcat</app.server>
-                <isExecutable>false</isExecutable>
-            </properties>
-            <dependencies>
+                <!-- ticker redis 存储 -->
+<!--                <dependency>-->
+<!--                    <groupId>org.apereo.cas</groupId>-->
+<!--                    <artifactId>cas-server-support-redis-ticket-registry</artifactId>-->
+<!--                    <version>${cas.version}</version>-->
+<!--                </dependency>-->
+                <!--自定义用户登入依赖集成 -->
                 <dependency>
                     <groupId>org.apereo.cas</groupId>
-                    <artifactId>cas-server-webapp${app.server}</artifactId>
+                    <artifactId>cas-server-core-webflow</artifactId>
                     <version>${cas.version}</version>
-                    <type>war</type>
-                    <scope>runtime</scope>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-core-authentication</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-core-authentication-api</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-core-webflow-api</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-core-configuration</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+                <!--验证码工具包 -->
+                <dependency>
+                    <groupId>com.github.penggle</groupId>
+                    <artifactId>kaptcha</artifactId>
+                    <version>2.3.2</version>
+                </dependency>
+
+                <!-- 审计功能 -->
+<!--                <dependency>-->
+<!--                    <groupId>org.apereo.cas</groupId>-->
+<!--                    <artifactId>cas-server-support-audit-jdbc</artifactId>-->
+<!--                    <version>${cas.version}</version>-->
+<!--                    <scope>runtime</scope>-->
+<!--                </dependency>-->
+                <!-- 热部署 -->
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                    <version>${springboot.version}</version>
+                    <optional>true</optional>
+                </dependency>
+
             </dependencies>
         </profile>
 
-        <profile>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <id>pgp</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.github.s4u.plugins</groupId>
-                        <artifactId>pgpverify-maven-plugin</artifactId>
-                        <version>1.1.0</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <pgpKeyServer>hkp://pool.sks-keyservers.net</pgpKeyServer>
-                            <pgpKeysCachePath>${settings.localRepository}/pgpkeys-cache</pgpKeysCachePath>
-                            <scope>test</scope>
-                            <verifyPomFiles>true</verifyPomFiles>
-                            <failNoSignature>false</failNoSignature>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+<!--        <profile>-->
+<!--            <activation>-->
+<!--                <activeByDefault>false</activeByDefault>-->
+<!--            </activation>-->
+<!--            <id>exec</id>-->
+<!--            <properties>-->
+<!--                <mainClassName>org.apereo.cas.web.CasWebApplication</mainClassName>-->
+<!--                <isExecutable>true</isExecutable>-->
+<!--                <manifestFileToUse></manifestFileToUse>-->
+<!--            </properties>-->
+<!--            <build>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>com.soebes.maven.plugins</groupId>-->
+<!--                        <artifactId>echo-maven-plugin</artifactId>-->
+<!--                        <version>0.3.0</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <phase>prepare-package</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>echo</goal>-->
+<!--                                </goals>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                        <configuration>-->
+<!--                            <echos>-->
+<!--                                <echo>Executable profile to make the generated CAS web application executable.</echo>-->
+<!--                            </echos>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
+
+<!--        <profile>-->
+<!--            <activation>-->
+<!--                <activeByDefault>false</activeByDefault>-->
+<!--            </activation>-->
+<!--            <id>bootiful</id>-->
+<!--            <properties>-->
+<!--                <app.server>-tomcat</app.server>-->
+<!--                <isExecutable>false</isExecutable>-->
+<!--            </properties>-->
+<!--            <dependencies>-->
+<!--                <dependency>-->
+<!--                    <groupId>org.apereo.cas</groupId>-->
+<!--                    <artifactId>cas-server-webapp${app.server}</artifactId>-->
+<!--                    <version>${cas.version}</version>-->
+<!--                    <type>war</type>-->
+<!--                    <scope>runtime</scope>-->
+<!--                </dependency>-->
+<!--            </dependencies>-->
+<!--        </profile>-->
+
+<!--        <profile>-->
+<!--            <activation>-->
+<!--                <activeByDefault>false</activeByDefault>-->
+<!--            </activation>-->
+<!--            <id>pgp</id>-->
+<!--            <build>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>com.github.s4u.plugins</groupId>-->
+<!--                        <artifactId>pgpverify-maven-plugin</artifactId>-->
+<!--                        <version>1.1.0</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <goals>-->
+<!--                                    <goal>check</goal>-->
+<!--                                </goals>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                        <configuration>-->
+<!--                            <pgpKeyServer>hkp://pool.sks-keyservers.net</pgpKeyServer>-->
+<!--                            <pgpKeysCachePath>${settings.localRepository}/pgpkeys-cache</pgpKeysCachePath>-->
+<!--                            <scope>test</scope>-->
+<!--                            <verifyPomFiles>true</verifyPomFiles>-->
+<!--                            <failNoSignature>false</failNoSignature>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
     </profiles>
 </project>
