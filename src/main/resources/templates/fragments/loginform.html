@@ -87,12 +87,13 @@
                                        tabindex="2"
                                        th:field="*{captcha}"
                                        autocomplete="off"/>
-                                <img th:src="@{/captcha.jpg}" id="captcha_img" onclick="javascript:refreshCaptcha()"/>
+                                <img th:src="@{/captchaController/captcha.jpg}" id="captcha_img" onclick="javascript:refreshCaptcha()"/>
+                                ${request.contextPath}
                             </span>
                             </div>
                             <script type="text/javascript" th:inline="javascript">
                                 function refreshCaptcha(){
-                                    $("#captcha_img").attr("src","${request.contextPath}/captcha.jpg?id=" + new Date() + Math.floor(Math.random()*24));
+                                    $("#captcha_img").attr("src","captchaController/captcha.jpg?id=" + new Date() + Math.floor(Math.random()*24));
                                 }
                             </script>
                         </section>

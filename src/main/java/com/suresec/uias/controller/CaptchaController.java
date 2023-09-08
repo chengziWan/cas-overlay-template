@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 @Controller
+@RequestMapping("/captchaController")
 public class CaptchaController {
 
     public static final String KEY_CAPTCHA = "captcha";
@@ -34,7 +35,6 @@ public class CaptchaController {
             BufferedImage image = tool.genRandomCodeImage(code);
             session.removeAttribute(KEY_CAPTCHA);
             session.setAttribute(KEY_CAPTCHA, code.toString());
-
             // 将内存中的图片通过流动形式输出到客户端
             ImageIO.write(image, "JPEG", response.getOutputStream());
 
