@@ -2,6 +2,7 @@ package com.suresec.uias.authentication;
 
 import com.suresec.uias.authentication.exception.CaptchaException;
 import com.suresec.uias.service.UserService;
+import com.suresec.uias.vo.UserInfo;
 import org.apereo.cas.authentication.AuthenticationHandlerExecutionResult;
 import org.apereo.cas.authentication.Credential;
 import org.apereo.cas.authentication.MessageDescriptor;
@@ -91,13 +92,15 @@ public class UsernamePasswordCaptchaAuthenticationHandler extends AbstractPreAnd
                         throw new AccountNotFoundException("Encoded password is null.");
                     }else{
                         // TODO-WCC: 增加校验：账号密码；证书验签；手机扫码登录   [WanCC 2023/9/13  11:06]
-
+                        UserInfo u = userService.selectByLoginName(myCredential.getUsername());
                         myCredential.setUsername(transformedUsername);
                         myCredential.setPassword(transformedPsw);
-
                         //map 为返回给客户端的信息
                         Map<String, Object> map = new HashMap<>();
-                        map.put("username", myCredential.getUsername());
+                        if(u!=null){
+                            map.put("loginName", u.getLoginName());
+                            map.put("username", u.getUserName());
+                        }
                         List<MessageDescriptor> warning = new ArrayList<MessageDescriptor>();
                         LOGGER.error("Attempting authentication internally for transformed credential [{}]", myCredential);
                         return createHandlerResult(myCredential, principalFactory.createPrincipal(myCredential.getUsername(), map), warning);
