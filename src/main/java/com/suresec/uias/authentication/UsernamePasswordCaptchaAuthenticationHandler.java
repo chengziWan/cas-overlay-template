@@ -1,6 +1,6 @@
 package com.suresec.uias.authentication;
 
-import com.suresec.uias.exception.CaptchaException;
+import com.suresec.uias.authentication.exception.CaptchaException;
 import com.suresec.uias.service.UserService;
 import org.apereo.cas.authentication.AuthenticationHandlerExecutionResult;
 import org.apereo.cas.authentication.Credential;
@@ -72,7 +72,7 @@ public class UsernamePasswordCaptchaAuthenticationHandler extends AbstractPreAnd
         LOGGER.error("org.apache.commons.lang3.StringUtils.isEmpty(requestCaptcha)=====" + org.apache.commons.lang3.StringUtils.isEmpty(requestCaptcha));
         if(org.apache.commons.lang3.StringUtils.isEmpty(requestCaptcha) || !realCaptcha.equalsIgnoreCase(requestCaptcha)){
             LOGGER.error("请输入正确的验证码" + "requestCaptcha.equals(realCaptcha)=====" + requestCaptcha.equalsIgnoreCase(realCaptcha));
-            throw new CaptchaException("Captcha is error!");
+            throw new CaptchaException();
         }else{
             LOGGER.error("requestCaptcha.equals(realCaptcha)=====" + requestCaptcha.equals(realCaptcha));
             if(org.apache.commons.lang3.StringUtils.isBlank(myCredential.getUsername())){

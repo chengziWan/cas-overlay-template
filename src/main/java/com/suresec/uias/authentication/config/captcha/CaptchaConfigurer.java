@@ -1,4 +1,4 @@
-package com.suresec.uias.config.captcha;
+package com.suresec.uias.authentication.config.captcha;
 
 import com.suresec.uias.authentication.UsernamePasswordCaptchaWebflowConfigurer;
 import org.apereo.cas.configuration.CasConfigurationProperties;

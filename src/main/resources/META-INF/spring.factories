@@ -2,6 +2,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.apereo.cas.config.CasEmbeddedContainerTomcatConfiguration,\
   org.apereo.cas.config.CasEmbeddedContainerTomcatFiltersConfiguration,\
   com.suresec.uias.config.SpringConfig,\
-  com.suresec.uias.config.captcha.CaptchaConfigurer,\
-  com.suresec.uias.config.captcha.UsernamePasswordCaptchaConfig
+  com.suresec.uias.authentication.config.captcha.CaptchaConfigurer,\
+  com.suresec.uias.authentication.config.captcha.UsernamePasswordCaptchaConfig
 

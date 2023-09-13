@@ -1,4 +1,4 @@
-package com.suresec.uias.exception;
+package com.suresec.uias.authentication.exception;
 
 import javax.security.auth.login.AccountException;
 

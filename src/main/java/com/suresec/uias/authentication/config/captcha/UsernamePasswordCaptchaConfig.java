@@ -1,4 +1,4 @@
-package com.suresec.uias.config.captcha;
+package com.suresec.uias.authentication.config.captcha;
 
 import com.suresec.uias.authentication.UsernamePasswordCaptchaAuthenticationHandler;
 import com.suresec.uias.service.UserService;
