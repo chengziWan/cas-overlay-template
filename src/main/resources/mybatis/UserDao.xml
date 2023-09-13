@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suresec.uias.dao.UserDao">
+  <resultMap id="BaseResultMap" type="com.suresec.uias.vo.UserInfo">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
+    <result column="LOGIN_PASSWD" jdbcType="VARCHAR" property="loginPasswd" />
+    <result column="ORG_ID" jdbcType="INTEGER" property="orgId" />
+    <result column="USER_CARD" jdbcType="VARCHAR" property="userCard" />
+    <result column="USER_EMAIL" jdbcType="VARCHAR" property="userEmail" />
+    <result column="USER_PHONE" jdbcType="VARCHAR" property="userPhone" />
+    <result column="USER_CITY_ID" jdbcType="VARCHAR" property="userCityId" />
+    <result column="USER_TYPE" jdbcType="INTEGER" property="userType" />
+    <result column="SEND_FLAG" jdbcType="INTEGER" property="sendFlag" />
+    <result column="USER_STATUS" jdbcType="INTEGER" property="userStatus" />
+    <result column="ADD_TIME" jdbcType="VARCHAR" property="addTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="ORGIDNAME" jdbcType="VARCHAR" property="orgIdName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID,
+    USER_NAME,
+    LOGIN_NAME,
+    LOGIN_PASSWD,
+    ORG_ID,
+    USER_CARD,
+    USER_EMAIL,
+    USER_PHONE,
+    USER_CITY_ID,
+    USER_TYPE,
+    SEND_FLAG,
+    USER_STATUS,
+    ADD_TIME,
+    REMARK
+  </sql>
+  <select id="selectByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    *
+    from sys_user_info
+    where LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+  </select>
+</mapper>

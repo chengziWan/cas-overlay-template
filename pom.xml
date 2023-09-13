@@ -65,13 +65,18 @@
         </plugins>
         <finalName>cas</finalName>
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-support-jdbc-authentication</artifactId>
-            <version>5.3.16</version>
-        </dependency>
-    </dependencies>
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apereo.cas</groupId>-->
+<!--            <artifactId>cas-server-support-jdbc-authentication</artifactId>-->
+<!--            <version>5.3.16</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apereo.cas</groupId>-->
+<!--            <artifactId>cas-server-core-api-configuration-model</artifactId>-->
+<!--            <version>5.3.16</version>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
 
     <properties>
         <cas.version>5.3.16</cas.version>
@@ -135,16 +140,16 @@
 
 
                 <!-- 数据库 -->
-                <dependency>
-                    <groupId>org.apereo.cas</groupId>
-                    <artifactId>cas-server-support-jdbc</artifactId>
-                    <version>${cas.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.apereo.cas</groupId>
-                    <artifactId>cas-server-support-jdbc-drivers</artifactId>
-                    <version>${cas.version}</version>
-                </dependency>
+<!--                <dependency>-->
+<!--                    <groupId>org.apereo.cas</groupId>-->
+<!--                    <artifactId>cas-server-support-jdbc</artifactId>-->
+<!--                    <version>${cas.version}</version>-->
+<!--                </dependency>-->
+<!--                <dependency>-->
+<!--                    <groupId>org.apereo.cas</groupId>-->
+<!--                    <artifactId>cas-server-support-jdbc-drivers</artifactId>-->
+<!--                    <version>${cas.version}</version>-->
+<!--                </dependency>-->
                 <!-- Database Authentication End -->
                 <dependency>
                     <groupId>mysql</groupId>
@@ -179,17 +184,66 @@
                     <artifactId>cas-server-core-webflow-api</artifactId>
                     <version>${cas.version}</version>
                 </dependency>
-                <dependency>
-                    <groupId>org.apereo.cas</groupId>
-                    <artifactId>cas-server-core-configuration</artifactId>
-                    <version>${cas.version}</version>
-                </dependency>
+<!--                <dependency>-->
+<!--                    <groupId>org.apereo.cas</groupId>-->
+<!--                    <artifactId>cas-server-core-configuration</artifactId>-->
+<!--                    <version>${cas.version}</version>-->
+<!--                </dependency>-->
                 <!--验证码工具包 -->
                 <dependency>
                     <groupId>com.github.penggle</groupId>
                     <artifactId>kaptcha</artifactId>
                     <version>2.3.2</version>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                    <version>1.18.24</version>
+                </dependency>
+
+<!--                <dependency>-->
+<!--                    <groupId>org.mybatis.spring.boot</groupId>-->
+<!--                    <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--                    <version>1.2.0</version>-->
+<!--                </dependency>-->
+                <!--mybatis分页插件-->
+                <dependency>
+                    <groupId>org.mybatis.spring.boot</groupId>
+                    <artifactId>mybatis-spring-boot-starter</artifactId>
+                    <version>1.2.0</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-starter-logging</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.github.pagehelper</groupId>
+                    <artifactId>pagehelper</artifactId>
+                    <version>5.3.3</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>druid</artifactId>
+                    <version>1.0.18</version>
+                </dependency>
+<!--                <dependency>-->
+<!--                    <groupId>org.apache.commons</groupId>-->
+<!--                    <artifactId>commons-dbcp2</artifactId>-->
+<!--                    <version>2.4.0</version>-->
+<!--                </dependency>-->
+<!--                <dependency>-->
+<!--                    <groupId>org.apache.commons</groupId>-->
+<!--                    <artifactId>commons-pool2</artifactId>-->
+<!--                    <version>2.4.2</version>-->
+<!--                </dependency>-->
+
+
+
 
                 <!-- 审计功能 -->
 <!--                <dependency>-->

@@ -1,6 +1,7 @@
 package com.suresec.uias.authentication;
 
 import com.suresec.uias.exception.CaptchaException;
+import com.suresec.uias.service.UserService;
 import org.apereo.cas.authentication.AuthenticationHandlerExecutionResult;
 import org.apereo.cas.authentication.Credential;
 import org.apereo.cas.authentication.MessageDescriptor;
@@ -32,11 +33,15 @@ import java.util.Map;
 public class UsernamePasswordCaptchaAuthenticationHandler extends AbstractPreAndPostProcessingAuthenticationHandler
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(UsernamePasswordCaptchaAuthenticationHandler.class);
+
+    private UserService userService;
     public UsernamePasswordCaptchaAuthenticationHandler(String name, ServicesManager servicesManager,
-            PrincipalFactory principalFactory, Integer order) {
+            PrincipalFactory principalFactory, Integer order, UserService userService) {
         super(name, servicesManager, principalFactory, order);
+        this.userService = userService;
         // TODO Auto-generated constructor stub
     }
+
 
     private PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
     private PrincipalNameTransformer principalNameTransformer = (formUserId) -> {
@@ -47,13 +52,12 @@ public class UsernamePasswordCaptchaAuthenticationHandler extends AbstractPreAnd
     @Override
     public boolean supports(Credential credential) {
         // TODO Auto-generated method stub
-        LOGGER.error("credential instanceof UsernamePasswordCaptchaCredential===" + (credential instanceof UsernamePasswordCaptchaCredential));
+//        LOGGER.error("credential instanceof UsernamePasswordCaptchaCredential===" + (credential instanceof UsernamePasswordCaptchaCredential));
         return credential instanceof UsernamePasswordCaptchaCredential;
     }
 
     @Override
-    protected AuthenticationHandlerExecutionResult doAuthentication(Credential credential)
-            throws GeneralSecurityException, PreventedException
+    protected AuthenticationHandlerExecutionResult doAuthentication(Credential credential) throws GeneralSecurityException, PreventedException
     {
         // TODO Auto-generated method stub
         // 用户凭证
@@ -86,9 +90,12 @@ public class UsernamePasswordCaptchaAuthenticationHandler extends AbstractPreAnd
                     if(org.apache.commons.lang3.StringUtils.isBlank(transformedPsw)){
                         throw new AccountNotFoundException("Encoded password is null.");
                     }else{
+                        // TODO-WCC: 增加校验：账号密码；证书验签；手机扫码登录   [WanCC 2023/9/13  11:06]
+
                         myCredential.setUsername(transformedUsername);
                         myCredential.setPassword(transformedPsw);
 
+                        //map 为返回给客户端的信息
                         Map<String, Object> map = new HashMap<>();
                         map.put("username", myCredential.getUsername());
                         List<MessageDescriptor> warning = new ArrayList<MessageDescriptor>();

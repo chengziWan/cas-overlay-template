@@ -1,6 +1,7 @@
 package com.suresec.uias.config.captcha;
 
 import com.suresec.uias.authentication.UsernamePasswordCaptchaAuthenticationHandler;
+import com.suresec.uias.service.UserService;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlan;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlanConfigurer;
 import org.apereo.cas.authentication.AuthenticationHandler;
@@ -14,11 +15,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration("usernamePasswordCaptchaConfig")
-@EnableConfigurationProperties(CasConfigurationProperties.class)
+@EnableConfigurationProperties({CasConfigurationProperties.class})
 public class UsernamePasswordCaptchaConfig implements AuthenticationEventExecutionPlanConfigurer {
 
     @Autowired
     private CasConfigurationProperties casProperties;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     @Qualifier("servicesManager")
@@ -34,7 +37,7 @@ public class UsernamePasswordCaptchaConfig implements AuthenticationEventExecuti
                 UsernamePasswordCaptchaAuthenticationHandler.class.getSimpleName(),
                 servicesManager,
                 new DefaultPrincipalFactory(),
-                9);
+                9,userService);
         return handler;
     }
 
